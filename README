@@ -1,0 +1,59 @@
+Pranshul Lakhanpal CSC 369
+
+In this lab I have implemented multiple jobs that calculate diffrent things.
+
+
+For Task 1:
+
+We can start the job for task 1 using this command: gradle run --args="UrlPath input_access_log out/ out/part-r-00000 out2/" 
+The first argument inside the args specifies that we are callling the urlPath Job, the second argument is the input file 
+from where to read, the third argument is the output file of the task, the next argument is the file from where the 
+sort task will read and the last argument is from where the sort task will write the output. This task is does using two 
+jobs the first job computes the number of URLs. The output of the file is of the structure <URL> <Count>. The output is 
+sorted according to the URL in ascending order. The second task reads in the output of the first job and sorts it according 
+to the count and is of the format <Count> <URL>.
+
+For Task 2:
+
+We can start the job for task 2 using this command: gradle run --args="ResponceCode input_access_log out/". The arguments are similar 
+to the Hadoop example we did in class. The first argument specifies the job, the second argument is the input file from where to 
+read from and the last argumet is where you write the output to. This task has only one job and the output is of the format 
+<Response Code> <Count>. The output is sorted according to the Response Code.
+
+
+For Task 3:
+
+We can start the job for task 3 by calling this comand: gradle run --args="HostName input_access_log out/". The arguments are similar
+to the previous task. This job for this task computes the bytes sent to the client with a specified hostname or IPv4 address. The 
+hostname  ot the IPv4 address is hardcoded in the job. The output format for the job is <hostname> <total bytes sent>.
+
+
+For Task 4: 
+
+We can start the job for task 4 by calling this comand: gradle run --args="RequestCount input_access_log out/ out/part-r-00000 out2/". 
+The arguments are similar to the arguments of Task 1. This task requires 2 jobs, the first job compute a request count for each client
+for a given URL, the output for the first job is of the format <HostName> <Count>. This output is sorted by hostname in ascending order
+the second job takes the output for the first job and sorts it acording to the count of each hostname. The output format of the second 
+job is <Count> <HostName>.
+
+
+For Task 5:
+
+We can start the job for task 5 by calling this comand: gradle run --args="MonthYear input_access_log out/". The arguments are the same as 
+other jobs. This job calculates the count for each calendar month and year, sorted chronologically. The map part of this jobs first changes
+the date taken from the input file to yyyy/mm format and sorts it, in the reduce part of the job the format is changed back to mm/yyyy and 
+the total count is calculated. The output format for this job is <Date> <Count>. The data is sorted according to the date.
+
+For Task 6:
+
+We can start the job for task 6 by calling this comand: gradle run --args="BytesSent input_access_log out/ out/part-r-00000 out2/".
+The arguments are the same as task 1. This task is done in two jobs. The first job calculates the total bytes sent for each calendar 
+day. The output is of the format <Date> <Toatl Bytes Sent>. the output is srted accordint to the date in string format, The second job
+takes as an input the output of the previous job and sorts the data according to the bytes sent. The output is of the format 
+<Count> <Total Bytes Sent> sorted by Count in ascending order. 
+
+
+I made a a SortTextNum class that has a maper class that sorts the output of a file in ascending order of the keys. This file only has 
+a map job, and i use the fact that hadoop will write the output of a map job to the file if a reducer is not present. Since i dont have to 
+calculate anything new i just make use of a mapper function.
+
